@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title>Properties</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.25rem;">All Properties</h2>
+                <a th:href="@{/admin/properties/add}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="text-align: left; border-bottom: 1px solid #e5e7eb;">
+                        <th style="padding: 12px;">ID</th>
+                        <th style="padding: 12px;">Title</th>
+                        <th style="padding: 12px;">Type</th>
+                        <th style="padding: 12px;">Price</th>
+                        <th style="padding: 12px;">Status</th>
+                        <th style="padding: 12px; text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="prop : ${properties}" style="border-bottom: 1px solid #f3f4f6;">
+                        <td style="padding: 12px;" th:text="${prop.uniqueId}">RENT-123</td>
+                        <td style="padding: 12px;" th:text="${prop.title}">Luxury Villa</td>
+                        <td style="padding: 12px;"
+                            th:text="${prop.propertyType != null ? prop.propertyType.name : 'N/A'}">Villa</td>
+                        <td style="padding: 12px;" th:text="${'$' + prop.price}">$1200</td>
+                        <td style="padding: 12px;">
+                            <span th:if="${prop.available}"
+                                style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">Available</span>
+                            <span th:unless="${prop.available}"
+                                style="background: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">Rented</span>
+                        </td>
+                        <td style="padding: 12px; text-align: right;">
+                            <a th:href="@{/admin/properties/edit/{id}(id=${prop.id})}"
+                                style="color: #4f46e5; margin-right: 10px;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a th:href="@{/admin/properties/delete/{id}(id=${prop.id})}" style="color: #ef4444;"
+                                onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(properties)}">
+                        <td colspan="6" style="padding: 20px; text-align: center; color: #6b7280;">No properties found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

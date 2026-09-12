@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title>Contact Details</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.25rem;">Contact Details</h2>
+                <a th:href="@{/admin/contacts}" class="btn" style="background: #e5e7eb; color: #374151;">
+                    <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to List
+                </a>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 20px;">
+                <div>
+                    <p style="margin-bottom: 10px;"><strong>Unique ID:</strong> <span
+                            th:text="${contact.uniqueId}">CNT-123</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Full Name:</strong> <span th:text="${contact.fullName}">John
+                            Doe</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Email:</strong> <span
+                            th:text="${contact.email}">john@example.com</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Contact Number:</strong> <span
+                            th:text="${contact.contactNumber}">+1234567890</span></p>
+                </div>
+                <div>
+                    <p style="margin-bottom: 10px;"><strong>Property Type:</strong> <span
+                            th:text="${contact.propertyType != null ? contact.propertyType.name : 'N/A'}">Apartment</span>
+                    </p>
+                    <p style="margin-bottom: 10px;"><strong>Location:</strong> <span th:text="${contact.location}">City
+                            Center</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Price:</strong> <span
+                            th:text="${'$' + contact.price}">$20000</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Submitted:</strong> <span
+                            th:text="${#temporals.format(contact.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-01</span></p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;"><strong>Description:</strong></p>
+                <p style="color: #6b7280;" th:text="${contact.description}">Interested in this property...</p>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 20px;">
+                <div>
+                    <p style="margin-bottom: 10px;"><strong>Bedrooms:</strong> <span
+                            th:text="${contact.bedroom}">2</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Bathrooms:</strong> <span
+                            th:text="${contact.bathroom}">1</span></p>
+                </div>
+                <div>
+                    <p style="margin-bottom: 10px;"><strong>Balconies:</strong> <span
+                            th:text="${contact.balcony}">1</span></p>
+                    <p style="margin-bottom: 10px;"><strong>Area:</strong> <span
+                            th:text="${contact.area + ' sq ft'}">1000 sq ft</span></p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;"><strong>Address:</strong> <span th:text="${contact.address}">123 Main
+                        St</span></p>
+            </div>
+
+            <!-- Submitted Images Section -->
+            <div th:if="${contact.imageTempUrls != null and !contact.imageTempUrls.isEmpty()}"
+                style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: #111827;">Submitted Images</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    <div th:each="imageUrl : ${#strings.arraySplit(contact.imageTempUrls, ',')}"
+                        style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <img th:src="${imageUrl}" alt="Property Image"
+                            style="width: 100%; height: 150px; object-fit: cover; display: block;">
+                        <div style="padding: 8px; background: #f9fafb; text-align: center;">
+                            <a th:href="${imageUrl}" target="_blank"
+                                style="color: #4f46e5; text-decoration: none; font-size: 0.875rem;">
+                                <i class="fas fa-external-link-alt" style="margin-right: 4px;"></i> View Full Size
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:unless="${contact.imageTempUrls != null and !contact.imageTempUrls.isEmpty()}"
+                style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: #111827;">Submitted Images</h3>
+                <div style="padding: 20px; background: #f9fafb; border-radius: 8px; text-align: center;">
+                    <i class="fas fa-image" style="font-size: 2rem; color: #d1d5db; margin-bottom: 10px;"></i>
+                    <p style="color: #6b7280; font-style: italic; margin: 0;">No images submitted with this contact.</p>
+                </div>
+            </div>
+
+            <!-- Status Update Form -->
+            <div class="card" style="background: #f9fafb; padding: 20px;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Update Status</h3>
+                <form th:action="@{/admin/contacts/update-status/{id}(id=${contact.id})}" method="post"
+                    style="display: flex; gap: 10px; align-items: center;">
+                    <select name="status" class="form-control" style="max-width: 200px;">
+                        <option value="pending" th:selected="${contact.status == 'pending'}">Pending</option>
+                        <option value="approved" th:selected="${contact.status == 'approved'}">Approved</option>
+                        <option value="rejected" th:selected="${contact.status == 'rejected'}">Rejected</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

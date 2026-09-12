@@ -1,0 +1,626 @@
+{
+  "project" : {
+    "name" : "Rental Website Backend API",
+    "description" : "Automatically generated API documentation for the Rental Website Spring Boot backend.",
+    "baseUrl" : "http://localhost:8080"
+  },
+  "statistics" : {
+    "javaFiles" : 37,
+    "controllers" : 5,
+    "dtos" : 4,
+    "entities" : 4,
+    "services" : 4,
+    "repositories" : 4,
+    "parserClasses" : 14,
+    "endpoints" : 29,
+    "relationships" : 3
+  },
+  "endpoints" : [ {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin",
+    "controller" : "AdminController",
+    "methodName" : "dashboard",
+    "description" : "Dashboard",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/property-types",
+    "controller" : "AdminController",
+    "methodName" : "listPropertyTypes",
+    "description" : "List Property Types",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/property-types/add",
+    "controller" : "AdminController",
+    "methodName" : "addPropertyTypeForm",
+    "description" : "Add Property Type Form",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/property-types/edit/{id}",
+    "controller" : "AdminController",
+    "methodName" : "editPropertyTypeForm",
+    "description" : "Edit Property Type Form",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/admin/property-types/save",
+    "controller" : "AdminController",
+    "methodName" : "savePropertyType",
+    "description" : "Save Property Type",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/property-types/delete/{id}",
+    "controller" : "AdminController",
+    "methodName" : "deletePropertyType",
+    "description" : "Delete Property Type",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/properties",
+    "controller" : "AdminController",
+    "methodName" : "listProperties",
+    "description" : "List Properties",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/properties/add",
+    "controller" : "AdminController",
+    "methodName" : "addPropertyForm",
+    "description" : "Add Property Form",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/properties/edit/{id}",
+    "controller" : "AdminController",
+    "methodName" : "editPropertyForm",
+    "description" : "Edit Property Form",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/admin/properties/save",
+    "controller" : "AdminController",
+    "methodName" : "saveProperty",
+    "description" : "Save Property",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "imageUrls",
+      "type" : "String[]",
+      "location" : "Query",
+      "required" : false
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/properties/delete/{id}",
+    "controller" : "AdminController",
+    "methodName" : "deleteProperty",
+    "description" : "Delete Property",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/admin/properties/{id}/images/add",
+    "controller" : "AdminController",
+    "methodName" : "addPropertyImage",
+    "description" : "Add Property Image",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "location" : "Query",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/properties/images/delete/{id}",
+    "controller" : "AdminController",
+    "methodName" : "deletePropertyImage",
+    "description" : "Delete Property Image",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    }, {
+      "name" : "propertyId",
+      "type" : "Long",
+      "location" : "Query",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/contacts",
+    "controller" : "AdminController",
+    "methodName" : "listContacts",
+    "description" : "List Contacts",
+    "type" : "Admin/Web",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/contacts/view/{id}",
+    "controller" : "AdminController",
+    "methodName" : "viewContact",
+    "description" : "View Contact",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/admin/contacts/update-status/{id}",
+    "controller" : "AdminController",
+    "methodName" : "updateContactStatus",
+    "description" : "Update Contact Status",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    }, {
+      "name" : "status",
+      "type" : "String",
+      "location" : "Query",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/admin/contacts/delete/{id}",
+    "controller" : "AdminController",
+    "methodName" : "deleteContact",
+    "description" : "Delete Contact",
+    "type" : "Admin/Web",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "text/html",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/api/contact",
+    "controller" : "ContactController",
+    "methodName" : "submit",
+    "description" : "Submit",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : {
+      "type" : "ContactDTO",
+      "contentType" : "application/json",
+      "fields" : [ "fullName : String", "email : String", "contactNumber : String", "description : String", "propertyTypeId : Long", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "price : Double", "address : String", "location : String", "imageTempUrls : String" ]
+    },
+    "response" : {
+      "returnType" : "Contact",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "fullName : String", "email : String", "contactNumber : String", "description : String", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "price : Double", "address : String", "location : String", "imageTempUrls : String", "status : String", "activeStatus : Integer", "createdAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/api/properties",
+    "controller" : "PropertyController",
+    "methodName" : "create",
+    "description" : "Create",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : {
+      "type" : "PropertyDTO",
+      "contentType" : "application/json",
+      "fields" : [ "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyTypeId : Long", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String" ]
+    },
+    "response" : {
+      "returnType" : "Property",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/api/properties",
+    "controller" : "PropertyController",
+    "methodName" : "getAll",
+    "description" : "Get All",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "List<Property>",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/api/properties/search",
+    "controller" : "PropertyController",
+    "methodName" : "searchProperties",
+    "description" : "Search Properties",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "typeId",
+      "type" : "Long",
+      "location" : "Query",
+      "required" : false
+    }, {
+      "name" : "location",
+      "type" : "String",
+      "location" : "Query",
+      "required" : false
+    }, {
+      "name" : "minPrice",
+      "type" : "Double",
+      "location" : "Query",
+      "required" : false
+    }, {
+      "name" : "maxPrice",
+      "type" : "Double",
+      "location" : "Query",
+      "required" : false
+    }, {
+      "name" : "keyword",
+      "type" : "String",
+      "location" : "Query",
+      "required" : false
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "List<Property>",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/api/properties/{id}",
+    "controller" : "PropertyController",
+    "methodName" : "getById",
+    "description" : "Get By Id",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "Property",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "PUT",
+    "endpoint" : "/api/properties/{id}",
+    "controller" : "PropertyController",
+    "methodName" : "update",
+    "description" : "Update",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : {
+      "type" : "PropertyDTO",
+      "contentType" : "application/json",
+      "fields" : [ "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyTypeId : Long", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String" ]
+    },
+    "response" : {
+      "returnType" : "Property",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "DELETE",
+    "endpoint" : "/api/properties/{id}",
+    "controller" : "PropertyController",
+    "methodName" : "delete",
+    "description" : "Delete",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "application/json",
+      "status" : 200
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/api/property-images",
+    "controller" : "PropertyImageController",
+    "methodName" : "upload",
+    "description" : "Upload",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : {
+      "type" : "PropertyImageDTO",
+      "contentType" : "application/json",
+      "fields" : [ "propertyId : Long", "imageUrl : String" ]
+    },
+    "response" : {
+      "returnType" : "PropertyImage",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "property : Property", "imageUrl : String", "activeStatus : Integer", "createdAt : LocalDateTime" ]
+    }
+  }, {
+    "httpMethod" : "POST",
+    "endpoint" : "/api/property-types",
+    "controller" : "PropertyTypeController",
+    "methodName" : "create",
+    "description" : "Create",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : {
+      "type" : "PropertyTypeDTO",
+      "contentType" : "application/json",
+      "fields" : [ "id : Long", "name : String" ]
+    },
+    "response" : {
+      "returnType" : "PropertyType",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "name : String", "activeStatus : Integer" ]
+    }
+  }, {
+    "httpMethod" : "GET",
+    "endpoint" : "/api/property-types",
+    "controller" : "PropertyTypeController",
+    "methodName" : "getAll",
+    "description" : "Get All",
+    "type" : "REST",
+    "parameters" : [ ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "List<PropertyType>",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "name : String", "activeStatus : Integer" ]
+    }
+  }, {
+    "httpMethod" : "PUT",
+    "endpoint" : "/api/property-types/{id}",
+    "controller" : "PropertyTypeController",
+    "methodName" : "update",
+    "description" : "Update",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : {
+      "type" : "PropertyTypeDTO",
+      "contentType" : "application/json",
+      "fields" : [ "id : Long", "name : String" ]
+    },
+    "response" : {
+      "returnType" : "PropertyType",
+      "contentType" : "application/json",
+      "status" : 200,
+      "fields" : [ "id : Long", "name : String", "activeStatus : Integer" ]
+    }
+  }, {
+    "httpMethod" : "DELETE",
+    "endpoint" : "/api/property-types/{id}",
+    "controller" : "PropertyTypeController",
+    "methodName" : "delete",
+    "description" : "Delete",
+    "type" : "REST",
+    "parameters" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "location" : "Path",
+      "required" : true
+    } ],
+    "requestBody" : null,
+    "response" : {
+      "returnType" : "String",
+      "contentType" : "application/json",
+      "status" : 200
+    }
+  } ],
+  "dtos" : {
+    "ContactDTO" : {
+      "name" : "ContactDTO",
+      "fields" : [ "fullName : String", "email : String", "contactNumber : String", "description : String", "propertyTypeId : Long", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "price : Double", "address : String", "location : String", "imageTempUrls : String" ]
+    },
+    "PropertyImageDTO" : {
+      "name" : "PropertyImageDTO",
+      "fields" : [ "propertyId : Long", "imageUrl : String" ]
+    },
+    "PropertyTypeDTO" : {
+      "name" : "PropertyTypeDTO",
+      "fields" : [ "id : Long", "name : String" ]
+    },
+    "PropertyDTO" : {
+      "name" : "PropertyDTO",
+      "fields" : [ "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyTypeId : Long", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String" ]
+    }
+  },
+  "entities" : [ {
+    "name" : "Contact",
+    "fields" : [ "id : Long", "uniqueId : String", "fullName : String", "email : String", "contactNumber : String", "description : String", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "price : Double", "address : String", "location : String", "imageTempUrls : String", "status : String", "activeStatus : Integer", "createdAt : LocalDateTime" ]
+  }, {
+    "name" : "Property",
+    "fields" : [ "id : Long", "uniqueId : String", "title : String", "description : String", "price : Double", "securityDeposit : Double", "propertyType : PropertyType", "bedroom : Integer", "bathroom : Integer", "balcony : Integer", "area : Double", "amenities : String", "address : String", "location : String", "isAvailable : Boolean", "activeStatus : Integer", "createdAt : LocalDateTime", "updatedAt : LocalDateTime" ]
+  }, {
+    "name" : "PropertyImage",
+    "fields" : [ "id : Long", "property : Property", "imageUrl : String", "activeStatus : Integer", "createdAt : LocalDateTime" ]
+  }, {
+    "name" : "PropertyType",
+    "fields" : [ "id : Long", "name : String", "activeStatus : Integer" ]
+  } ],
+  "relationships" : [ {
+    "fromEntity" : "Contact",
+    "toEntity" : "PropertyType",
+    "relationshipType" : "ManyToOne",
+    "fieldName" : "propertyType"
+  }, {
+    "fromEntity" : "Property",
+    "toEntity" : "PropertyType",
+    "relationshipType" : "ManyToOne",
+    "fieldName" : "propertyType"
+  }, {
+    "fromEntity" : "PropertyImage",
+    "toEntity" : "Property",
+    "relationshipType" : "ManyToOne",
+    "fieldName" : "property"
+  } ],
+  "generator" : {
+    "name" : "Rental Website API Documentation Generator",
+    "format" : "JSON",
+    "automaticallyGenerated" : true
+  }
+}

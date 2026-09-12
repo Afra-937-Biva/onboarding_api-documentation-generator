@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-title">Total Properties</span>
+                <span class="stat-value" th:text="${totalProperties}">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-title">Active Listings</span>
+                <span class="stat-value" th:text="${activeListings}">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-title">Total Value</span>
+                <span class="stat-value"
+                    th:text="${'$' + #numbers.formatDecimal(totalValue, 0, 'COMMA', 0, 'POINT')}">$0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-title">Avg. Price</span>
+                <span class="stat-value"
+                    th:text="${'$' + #numbers.formatDecimal(averagePrice, 0, 'COMMA', 0, 'POINT')}">$0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-title">Contact Submissions</span>
+                <span class="stat-value" th:text="${totalContacts}">0</span>
+            </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- Properties by Type -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Properties by Type</h2>
+                <canvas id="typeChart" style="max-height: 300px;"></canvas>
+            </div>
+
+            <!-- Contact Status -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Contact Submissions Status</h2>
+                <canvas id="contactStatusChart" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- Availability Status -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Property Availability</h2>
+                <canvas id="availabilityChart" style="max-height: 300px;"></canvas>
+            </div>
+
+            <!-- Price Distribution -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Price Distribution</h2>
+                <canvas id="priceChart" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+
+        <!-- Charts Row 3 -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- Properties by Location -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Top Locations</h2>
+                <canvas id="locationChart" style="max-height: 300px;"></canvas>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Recent Properties</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #e5e7eb;">
+                            <th style="padding: 10px;">Title</th>
+                            <th style="padding: 10px;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="prop : ${recentProperties}" style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 10px;" th:text="${prop.title}">Title</td>
+                            <td style="padding: 10px;" th:text="${'$' + prop.price}">$0</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(recentProperties)}">
+                            <td colspan="2" style="padding: 20px; text-align: center; color: #6b7280;">No recent
+                                activity.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            // Chart 1: Properties by Type (Doughnut)
+            const typeLabels = /*[[${typeLabels}]]*/[];
+            const typeData = /*[[${typeData}]]*/[];
+
+            new Chart(document.getElementById('typeChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: typeLabels,
+                    datasets: [{
+                        data: typeData,
+                        backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Chart 2: Contact Status (Pie)
+            const contactStatusLabels = /*[[${contactStatusLabels}]]*/[];
+            const contactStatusData = /*[[${contactStatusData}]]*/[];
+
+            new Chart(document.getElementById('contactStatusChart'), {
+                type: 'pie',
+                data: {
+                    labels: contactStatusLabels,
+                    datasets: [{
+                        data: contactStatusData,
+                        backgroundColor: ['#fbbf24', '#10b981', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Chart 3: Availability (Doughnut)
+            const availabilityLabels = /*[[${availabilityLabels}]]*/[];
+            const availabilityData = /*[[${availabilityData}]]*/[];
+
+            new Chart(document.getElementById('availabilityChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: availabilityLabels,
+                    datasets: [{
+                        data: availabilityData,
+                        backgroundColor: ['#10b981', '#6b7280'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Chart 4: Price Distribution (Bar)
+            const priceRangeLabels = /*[[${priceRangeLabels}]]*/[];
+            const priceRangeData = /*[[${priceRangeData}]]*/[];
+
+            new Chart(document.getElementById('priceChart'), {
+                type: 'bar',
+                data: {
+                    labels: priceRangeLabels,
+                    datasets: [{
+                        label: 'Properties',
+                        data: priceRangeData,
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    }
+                }
+            });
+
+            // Chart 5: Properties by Location (Horizontal Bar)
+            const locationLabels = /*[[${locationLabels}]]*/[];
+            const locationData = /*[[${locationData}]]*/[];
+
+            new Chart(document.getElementById('locationChart'), {
+                type: 'bar',
+                data: {
+                    labels: locationLabels,
+                    datasets: [{
+                        label: 'Properties',
+                        data: locationData,
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    }
+                }
+            });
+            /*]]>*/
+        </script>
+
+    </div>
+
+</body>
+
+</html>

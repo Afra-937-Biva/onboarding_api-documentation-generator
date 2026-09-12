@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title>Property Types</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.25rem;">All Property Types</h2>
+                <a th:href="@{/admin/property-types/add}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="text-align: left; border-bottom: 1px solid #e5e7eb;">
+                        <th style="padding: 12px;">ID</th>
+                        <th style="padding: 12px;">Name</th>
+                        <th style="padding: 12px; text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="type : ${types}" style="border-bottom: 1px solid #f3f4f6;">
+                        <td style="padding: 12px;" th:text="${type.id}">1</td>
+                        <td style="padding: 12px;" th:text="${type.name}">Apartment</td>
+                        <td style="padding: 12px; text-align: right;">
+                            <a th:href="@{/admin/property-types/edit/{id}(id=${type.id})}"
+                                style="color: #4f46e5; margin-right: 10px;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a th:href="@{/admin/property-types/delete/{id}(id=${type.id})}" style="color: #ef4444;"
+                                onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(types)}">
+                        <td colspan="3" style="padding: 20px; text-align: center; color: #6b7280;">No property types
+                            found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

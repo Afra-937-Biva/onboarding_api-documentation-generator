@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title>Add Property Type</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form th:action="@{/admin/property-types/save}" th:object="${type}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label class="form-label">Type Name</label>
+                    <input type="text" class="form-control" th:field="*{name}" required
+                        placeholder="e.g. Apartment, Villa">
+                </div>
+
+                <div class="text-right">
+                    <a th:href="@{/admin/property-types}" class="btn"
+                        style="background: #e5e7eb; color: #374151; margin-right: 10px;">Cancel</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save" style="margin-right: 8px;"></i> Save Type
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

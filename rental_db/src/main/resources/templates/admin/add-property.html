@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout}">
+
+<head>
+    <title th:text="${pageTitle}">Add Property</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="card">
+            <form th:action="@{/admin/properties/save}" th:object="${property}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{createdAt}">
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" th:field="*{title}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Unique ID</label>
+                        <input type="text" class="form-control" th:field="*{uniqueId}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" th:field="*{description}" rows="4"></textarea>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Price</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{price}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Security Deposit</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{securityDeposit}">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Property Type</label>
+                        <select class="form-control" th:field="*{propertyType}">
+                            <option value="">Select Type</option>
+                            <option th:each="type : ${propertyTypes}" th:value="${type.id}" th:text="${type.name}">Type
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Area (sq ft)</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{area}">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Bedrooms</label>
+                        <input type="number" class="form-control" th:field="*{bedroom}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Bathrooms</label>
+                        <input type="number" class="form-control" th:field="*{bathroom}">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Balconies</label>
+                        <input type="number" class="form-control" th:field="*{balcony}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Is Available</label>
+                        <select class="form-control" th:field="*{available}">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" th:field="*{address}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" th:field="*{location}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Amenities</label>
+                    <input type="text" class="form-control" th:field="*{amenities}" placeholder="Comma separated">
+                </div>
+
+                <!-- Image URLs Section -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-images" style="margin-right: 5px;"></i> Property Images (URLs)
+                    </label>
+                    <div id="imageUrlsContainer">
+                        <div class="image-url-input" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <div style="flex: 1;">
+                                <input type="text" name="imageUrls" class="form-control" placeholder="Enter image URL">
+                                <span class="error-message"
+                                    style="color: #ef4444; font-size: 0.875rem; display: none; margin-top: 4px;"></span>
+                            </div>
+                            <button type="button" class="btn" onclick="removeImageUrl(this)"
+                                style="background: #ef4444; color: white; white-space: nowrap;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn" onclick="addImageUrl()"
+                        style="background: #10b981; color: white; margin-top: 10px;">
+                        <i class="fas fa-plus" style="margin-right: 5px;"></i> Add Another Image URL
+                    </button>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-top: 10px;">
+                        <i class="fas fa-info-circle"></i> Add image URLs for this property. You can add multiple
+                        images.
+                    </p>
+                </div>
+
+                <div class="text-right">
+                    <a th:href="@{/admin/properties}" class="btn"
+                        style="background: #e5e7eb; color: #374151; margin-right: 10px;">Cancel</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save" style="margin-right: 8px;"></i> Save Property
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Image Management Section (Only visible when editing) -->
+        <div class="card" th:if="${property.id != null}">
+            <h3 style="margin-bottom: 20px; font-size: 1.1rem;">Manage Existing Images</h3>
+
+            <!-- Existing Images -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div th:each="img : ${images}"
+                    style="position: relative; border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden;">
+                    <img th:src="${img.imageUrl}" alt="Property Image"
+                        style="width: 100%; height: 100px; object-fit: cover;">
+                    <a th:href="@{/admin/properties/images/delete/{id}(id=${img.id}, propertyId=${property.id})}"
+                        style="position: absolute; top: 5px; right: 5px; background: rgba(239, 68, 68, 0.9); color: white; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; text-decoration: none;"
+                        onclick="return confirm('Delete this image?')">
+                        <i class="fas fa-times" style="font-size: 12px;"></i>
+                    </a>
+                </div>
+                <div th:if="${#lists.isEmpty(images)}" style="grid-column: 1 / -1; color: #6b7280; font-style: italic;">
+                    No images uploaded yet.
+                </div>
+            </div>
+
+            <!-- Add New Image Form -->
+            <form th:action="@{/admin/properties/{id}/images/add(id=${property.id})}" method="post"
+                style="display: flex; gap: 10px;">
+                <input type="text" name="imageUrl" class="form-control" placeholder="Enter Image URL" required>
+                <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
+                    <i class="fas fa-upload" style="margin-right: 8px;"></i> Add Image
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        function addImageUrl() {
+            const container = document.getElementById('imageUrlsContainer');
+            const newInput = document.createElement('div');
+            newInput.className = 'image-url-input';
+            newInput.style.cssText = 'display: flex; gap: 10px; margin-bottom: 10px;';
+            newInput.innerHTML = `
+                <div style="flex: 1;">
+                    <input type="text" name="imageUrls" class="form-control" placeholder="Enter image URL" onblur="validateUrl(this)">
+                    <span class="error-message" style="color: #ef4444; font-size: 0.875rem; display: none; margin-top: 4px;"></span>
+                </div>
+                <button type="button" class="btn" onclick="removeImageUrl(this)" 
+                        style="background: #ef4444; color: white; white-space: nowrap;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(newInput);
+        }
+
+        function removeImageUrl(button) {
+            const container = document.getElementById('imageUrlsContainer');
+            if (container.children.length > 1) {
+                button.closest('.image-url-input').remove();
+            } else {
+                alert('At least one image URL field is required.');
+            }
+        }
+
+        function validateUrl(input) {
+            const errorSpan = input.nextElementSibling;
+            const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+            if (input.value.trim() === '') {
+                errorSpan.textContent = '';
+                errorSpan.style.display = 'none';
+                return true;
+            }
+
+            if (!urlPattern.test(input.value.trim())) {
+                errorSpan.textContent = 'Please enter a valid URL';
+                errorSpan.style.display = 'block';
+                return false;
+            } else {
+                errorSpan.textContent = '';
+                errorSpan.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Add validation to initial input field
+        document.addEventListener('DOMContentLoaded', function () {
+            const initialInput = document.querySelector('#imageUrlsContainer input[name="imageUrls"]');
+            if (initialInput) {
+                initialInput.setAttribute('onblur', 'validateUrl(this)');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
